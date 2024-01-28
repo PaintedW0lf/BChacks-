@@ -5,7 +5,7 @@ import cv2
 import math
 
 # model
-model = YOLO("yolo-Weights/yolov8n-face.pt")
+model = YOLO("yolo-Weights\yolov8n-face.pt")
 
 # object classes
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
