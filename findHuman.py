@@ -13,7 +13,7 @@ cap.set(3, width)
 cap.set(4, height)
 
 # model
-model = YOLO("yolo-Weights/yolov8n-face.pt")
+model = YOLO("yolov8n.pt")
 
 # object classes
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",

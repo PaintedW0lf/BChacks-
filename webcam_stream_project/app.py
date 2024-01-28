@@ -3,9 +3,9 @@ from flask import Flask, render_template, Response
 from ultralytics import YOLO
 import cv2
 import math
-
+from ultralytics import YOLO
 # model
-model = YOLO("yolo-Weights/yolov8n-face.pt")
+model = YOLO("yolov8n.pt")
 
 # object classes
 classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
