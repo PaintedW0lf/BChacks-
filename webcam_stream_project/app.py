@@ -1,27 +1,67 @@
-
-#Import necessary libraries
+# Import necessary libraries
 from flask import Flask, render_template, Response
+from ultralytics import YOLO
 import cv2
-#Initialize the Flask app
+import math
+
+# model
+model = YOLO("yolo-Weights/yolov8n-face.pt")
+
+# object classes
+classNames = ["person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train", "truck", "boat",
+              "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
+              "dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella",
+              "handbag", "tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat",
+              "baseball glove", "skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup",
+              "fork", "knife", "spoon", "bowl", "banana", "apple", "sandwich", "orange", "broccoli",
+              "carrot", "hot dog", "pizza", "donut", "cake", "chair", "sofa", "pottedplant", "bed",
+              "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard", "cell phone",
+              "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
+              "teddy bear", "hair drier", "toothbrush"
+              ]
+
+# Initialize the Flask app
 app = Flask(__name__)
 
+# OpenCV camera capture
 camera = cv2.VideoCapture(0)
-'''
-for ip camera use - rtsp://username:password@ip_address:554/user=username_password='password'_channel=channel_number_stream=0.sdp' 
-for local webcam use cv2.VideoCapture(0)
-'''
 
-def gen_frames():  
+def gen_frames():
     while True:
         success, frame = camera.read()  # read the camera frame
         if not success:
             break
         else:
+            results = model(frame, stream=True)
+
+            # Check for person detection
+            for r in results:
+                boxes = r.boxes
+
+                for box in boxes:
+                    cls = int(box.cls[0])
+
+                    # Check if the detected object is a person
+                    if classNames[cls] == "person":
+                        # Bounding box
+                        x1, y1, x2, y2 = map(int, box.xyxy[0])
+                        cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 255), 3)
+
+                        # Confidence
+                        confidence = math.ceil((box.conf[0] * 100)) / 100
+
+                        # Class name and details
+                        org = [x1, y1]
+                        font = cv2.FONT_HERSHEY_SIMPLEX
+                        fontScale = 1
+                        color = (255, 0, 0)
+                        thickness = 2
+
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
+
             yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-            
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/')
 def index():
@@ -33,36 +73,3 @@ def video_feed():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# from flask import Flask, render_template, Response
-# from camera import VideoCamera
-
-# app = Flask(__name__)
-# video_camera = VideoCamera()
-
-# def updateDetectedFaces(detected_faces):
-#     # Define the logic for updating detected faces here
-
-# def gen_frames():
-#     while True:
-#         frame, detected_faces = video_camera.get_frame()
-#         yield (b'--frame\r\n'
-#                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-#         updateDetectedFaces(detected_faces)
-#         # Add your indented block of code here
-#         # Example:
-#         # if condition:
-#         #     do_something()
-
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
-
-# @app.route('/video_feed')
-# def video_feed():
-#     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
