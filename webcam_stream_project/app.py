@@ -47,16 +47,6 @@ def gen_frames():
                         x1, y1, x2, y2 = map(int, box.xyxy[0])
                         cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 255), 3)
 
-                        # Confidence
-                        confidence = math.ceil((box.conf[0] * 100)) / 100
-
-                        # Class name and details
-                        org = [x1, y1]
-                        font = cv2.FONT_HERSHEY_SIMPLEX
-                        fontScale = 1
-                        color = (255, 0, 0)
-                        thickness = 2
-
             ret, buffer = cv2.imencode('.jpg', frame)
             frame = buffer.tobytes()
 
