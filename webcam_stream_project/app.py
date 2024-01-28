@@ -34,4 +34,35 @@ def video_feed():
 if __name__ == "__main__":
     app.run(debug=True)
 
+# from flask import Flask, render_template, Response
+# from camera import VideoCamera
+
+# app = Flask(__name__)
+# video_camera = VideoCamera()
+
+# def updateDetectedFaces(detected_faces):
+#     # Define the logic for updating detected faces here
+
+# def gen_frames():
+#     while True:
+#         frame, detected_faces = video_camera.get_frame()
+#         yield (b'--frame\r\n'
+#                b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+#         updateDetectedFaces(detected_faces)
+#         # Add your indented block of code here
+#         # Example:
+#         # if condition:
+#         #     do_something()
+
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
+
+# @app.route('/video_feed')
+# def video_feed():
+#     return Response(gen_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
 

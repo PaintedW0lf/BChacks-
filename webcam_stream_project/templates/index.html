@@ -113,6 +113,31 @@
             <!-- Add more faces as needed -->
         </div>
     </section>
+    
+    <div id="descriptions">
+        <h2>Detected Faces</h2>
+        <div class="faces" id="detected-faces">
+            <!-- Detected faces will be dynamically added here -->
+        </div>
+    </div>
+    
+    <script>
+        // Your JavaScript code here
+        const detectedFacesContainer = document.getElementById('detected-faces');
+
+        function updateDetectedFaces(faces) {
+            detectedFacesContainer.innerHTML = '';
+            faces.forEach((face, index) => {
+                const faceElement = document.createElement('div');
+                faceElement.className = 'face';
+                faceElement.innerHTML = `<img src="${face}" alt="Face ${index + 1}">`;
+                detectedFacesContainer.appendChild(faceElement);
+            });
+        }
+
+        // Other JavaScript functions or code as needed
+    </script>
+
 
 </body>
 
