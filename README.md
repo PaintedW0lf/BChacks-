@@ -1,6 +1,10 @@
-FaceRecognition ML integrated for security purposes! 
+FACIAL RECOGNITION USING PRE-TRAINED MODELS integrated for SECURITY purposes! 
 
-#SOME INTRUCTIONS TO FOLLOW THROUGH!! 
+
+
+
+
+# SOME INTRUCTIONS TO FOLLOW TO SET UP THE ENVIRONMENT!! 
 
 ## Pls downlod this seprately before
 
