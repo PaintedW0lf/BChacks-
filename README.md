@@ -1,4 +1,6 @@
-# Hello ARRC People
+FaceRecognition ML integrated for security purposes! 
+
+#SOME INTRUCTIONS TO FOLLOW THROUGH!! 
 
 ## Pls downlod this seprately before
 
