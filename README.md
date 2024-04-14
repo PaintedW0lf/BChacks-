@@ -1,12 +1,12 @@
-FACIAL RECOGNITION USING PRE-TRAINED MODELS integrated for SECURITY purposes! 
 
 
 
 
 
-# SOME INTRUCTIONS TO FOLLOW TO SET UP THE ENVIRONMENT!! 
 
-## Pls downlod this seprately before
+# FACIAL RECOGNITION AI USING PRE-TRAINED Machine MODELS  
+
+### Pls downlod this seprately before running the software
 
 1) **Install python 3.11 or less than**
    * We need it to be 3.11 or lower because that is what is compatable pythorch.
